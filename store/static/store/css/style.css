@@ -1,0 +1,35 @@
+header {
+    background-color: #333;
+    color: #a82a2a;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+nav a.active {
+    font-weight: bold;
+}
+
+.nav-logo{
+    height: 60px;
+    width: 60px;
+}
+
+.image-container{
+    float:left;
+    margin-left: 20px;
+}
