@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="align-center">
         <h1>Раді вас вітати в нашому залі</h1>
+    </div>
+    
+    <div class="main-image">
+        <a href="#">
+            <img src="{% static '/store/img/main_image.jpg' %}">
+        </a>
     </div>
 
 {% endblock %}

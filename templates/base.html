@@ -18,12 +18,11 @@
             </div>
 
             <ul>
-
-
-                <li><a href="#">Головна</a></li>
-                <li><a href="#">Про нас</a></li>
-                <li><a href="#">Послуги</a></li>
-                <li><a href="#">Контакти</a></li>
+                <li><a href="{% url 'main' %}">Головна</a></li>
+                <li><a href="{% url 'about' %}">Про нас</a></li>
+                <li><a href="#">Абонименти</a></li>
+                <li><a href="#">Тренера</a></li>
+                <li><a href="{% url 'contact' %}">Контакти</a></li>
             </ul>
         </nav>
      </header>

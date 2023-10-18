@@ -11,3 +11,24 @@ class Index(View):
         }
 
         return render(request=request, context=context, template_name=self.templates_name)
+
+
+class About(View):
+    templates_name = r'main_menu/about.html'
+
+    def get(self, request):
+        context = {
+            'title': 'About'
+        }
+
+        return render(request=request, context=context, template_name=self.templates_name)
+
+class Contact(View):
+    templates_name = r'main_menu/contact.html'
+
+    def get(self, request):
+        context = {
+            'title': 'Контакти'
+        }
+        return render(request=request, context=context, template_name=self.templates_name)
+
