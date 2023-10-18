@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.text import slugify
 
 from django.utils.translation import gettext_lazy as _
 
@@ -18,6 +19,9 @@ class Coach(models.Model):
     descriptions = models.TextField()
     image = models.ImageField(upload_to=None)
     price_per_training = models.CharField(max_length=10)
+    slug = models.SlugField(unique=True, max_length=50)
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
     class Meta:
         verbose_name = 'Тренер'
@@ -28,6 +32,9 @@ class Ticket(models.Model):
     type = models.CharField(max_length=35)
     type_day = models.CharField(max_length=35)
     price = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.type} {self.type_day}"
 
     class Meta:
         verbose_name = 'Абонемент'

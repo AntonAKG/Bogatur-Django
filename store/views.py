@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import ListView, DetailView
+
+from .models import Coach, Ticket
 
 
 class Index(View):
@@ -23,6 +26,7 @@ class About(View):
 
         return render(request=request, context=context, template_name=self.templates_name)
 
+
 class Contact(View):
     templates_name = r'main_menu/contact.html'
 
@@ -31,4 +35,26 @@ class Contact(View):
             'title': 'Контакти'
         }
         return render(request=request, context=context, template_name=self.templates_name)
+
+
+class CoachView(ListView):
+    model = Coach
+    template_name = 'coach/coach.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CoachView, self).get_context_data(**kwargs)
+
+        context['title'] = "Тренера"
+
+        return context
+
+
+class CoachDetail(DetailView):
+    model = Coach
+    template_name = 'coach/coach_detail.html'
+    slug_field = 'slug'
+    slug_url_kwarg = 'coach_slug'
+    context_object_name = 'coach'
+
+
 

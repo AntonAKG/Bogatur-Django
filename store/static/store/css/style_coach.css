@@ -1,0 +1,9 @@
+.loop-coach{
+    display: flex;
+}
+
+
+.coach-image{
+    height: 350px;
+    weight: 250px
+}

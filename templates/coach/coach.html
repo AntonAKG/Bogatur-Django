@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Coach</h1>
+    <div class="loop-coach">
+        {% for person in object_list %}
+            <h3>{{ person.user.first_name }} {{ person.user.last_name }}</h3><br>
+            <p>{{ person.price_per_training }} гривень</p>
+            <a href="{% url 'coach_detail' person.slug%}" class="link-coach-image">
+                <img src="{{ person.image.url }}" alt="coach" class="coach-image">
+
+            </a>
+
+
+
+        {% endfor %}
+    </div>
+
+{% endblock %}
