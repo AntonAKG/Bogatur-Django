@@ -20,6 +20,7 @@ class Coach(models.Model):
     image = models.ImageField(upload_to=None)
     price_per_training = models.CharField(max_length=10)
     slug = models.SlugField(unique=True, max_length=50)
+
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
 
@@ -39,3 +40,23 @@ class Ticket(models.Model):
     class Meta:
         verbose_name = 'Абонемент'
         verbose_name_plural = 'Абонементи'
+
+
+class BasketCoach(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField(default=0)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.coach.user.first_name} for {self.user.first_name} {self.user.last_name}'
+
+
+class BasketTicket(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField(default=0)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.ticket.type} {self.ticket.type_day} for {self.user.first_name} {self.user.last_name}'
