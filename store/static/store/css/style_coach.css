@@ -2,8 +2,26 @@
     display: flex;
 }
 
+.coach-detail-container{
+    align-content: center;
+
+}
 
 .coach-image{
     height: 350px;
     weight: 250px
+}
+
+.coach-image-container{
+    float: left;
+    margin: 10px;
+}
+
+.coach-image-container {
+    float: left;
+    width: 50%; /* Якщо ви хочете, щоб контейнери були приблизно однаковою шириною */
+}
+
+.coach-detail-container {
+    margin-left: 20%; /* Зміщення вправо на 50% ширини батьківського контейнера (можна налаштувати якщо потрібно) */
 }

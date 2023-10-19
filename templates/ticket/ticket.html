@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="title-ticket">Ticket</h1>
+    {% for ticket in object_list %}
+        <div class="ticket-container">
+            <h3>{{ ticket.type }}</h3>
+            <p style="color: blue">{{ ticket.type_day }}</p>
+            <p style="color: blue">{{ ticket.price }}</p>
+        </div>
+
+
+
+
+    {% endfor %}
+{% endblock %}

@@ -8,6 +8,8 @@
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'store/css/style_coach.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/style_ticket.css' %}">
+
 </head>
 <body>
      <header>
@@ -21,7 +23,7 @@
             <ul>
                 <li><a href="{% url 'main' %}">Головна</a></li>
                 <li><a href="{% url 'about' %}">Про нас</a></li>
-                <li><a href="#">Абонименти</a></li>
+                <li><a href="{% url 'ticket' %}">Абонименти</a></li>
                 <li><a href="{% url 'coach' %}">Тренера</a></li>
                 <li><a href="{% url 'contact' %}">Контакти</a></li>
             </ul>

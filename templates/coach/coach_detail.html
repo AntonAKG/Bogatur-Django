@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ coach.user.first_name }} {{ coach.user.last_name }}</h1>
+    <div class="coach-detail-container">
+        <h1 class="name-surname-coach">{{ coach.user.first_name }} {{ coach.user.last_name }}</h1>
+        <h5>{{ coach.descriptions }}</h5>
+    </div>
+
+    <div class="coach-image-container">
+        <a href="#">
+            <img src="{{ coach.image.url }}" alt="coach" class="coach-image">
+        </a>
+    </div>
+
 {% endblock %}

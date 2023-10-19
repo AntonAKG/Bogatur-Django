@@ -1,0 +1,9 @@
+.title-ticket{
+    align-items: center;
+}
+
+.ticket-container{
+    display: block;
+    align-items: center;
+    border: solid #000000;
+}
