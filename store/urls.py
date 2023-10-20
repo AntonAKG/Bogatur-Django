@@ -1,6 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
+
 from .views import Index, About, Contact, CoachView, CoachDetail, TicketView, LoginClassView, Register, ProfileView
 
 urlpatterns = [
@@ -12,6 +14,7 @@ urlpatterns = [
     path('ticket/', TicketView.as_view(), name='ticket'),
     path('register/', Register.as_view(), name="register"),
     path('login/', LoginClassView.as_view(), name='login'),
-    path('profile/', ProfileView.as_view(), name='profile')
+    path('profile/', login_required(ProfileView.as_view()), name='profile'),
+    path('', include('django.contrib.auth.urls'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

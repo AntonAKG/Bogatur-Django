@@ -4,9 +4,11 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-from .models import Coach, Ticket
-from .forms import RegisterForm, LoginForm
+from .models import Coach, Ticket, User
+from .forms import RegisterForm, LoginForm, UserProfileForm
 
 
 class Index(View):
@@ -93,7 +95,6 @@ class Register(View):
             password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             authenticate(password=password, email=email)
-            # login(request, user)
             return redirect('login')
 
         context = {
@@ -118,10 +119,31 @@ class LoginClassView(LoginView):
         return reverse('profile')
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileView(TemplateView):
     template_name = 'profile/profile.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Profile'
+        context['form'] = UserProfileForm(instance=self.request.user)
         return context
+
+    @staticmethod
+    def post(request: object) -> object:
+        form = UserProfileForm(data=request.POST)
+
+        if form.is_valid():
+
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+
+                form.add_error('username', 'Користувач з таким іменем вже існує.')
+                form.add_error('email', 'Користувач з такою адресою електронної пошти вже існує.')
+            else:
+
+                form.save()
+                return redirect('profile')
+
+        return render(request, 'profile/profile.html', {'form': form})

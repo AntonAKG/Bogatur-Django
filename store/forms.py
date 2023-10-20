@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 
 User = get_user_model()
 
@@ -14,6 +14,14 @@ class RegisterForm(UserCreationForm):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Ваше ім\'я на сайті'}))
+
+    first_name = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Ваше ім\'я'}))
+
+    last_name = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Ваше призвіще'}))
 
     password1 = forms.CharField(label='', widget=forms.PasswordInput(attrs={
         'class': 'form-control',
@@ -54,3 +62,15 @@ class LoginForm(AuthenticationForm):
             'class': 'form-control', 'placeholder': 'Пароль'
         })
         self.fields['password'].label = ''
+
+
+class UserProfileForm(UserChangeForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'readonly': True}))
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4','readonly': True}))
+
+    class Meta:
+       model = User
+       fields = ('first_name', 'last_name', 'username', 'email')
+

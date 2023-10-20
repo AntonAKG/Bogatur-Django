@@ -10,6 +10,7 @@ nav ul {
     text-align: center;
 }
 
+
 nav ul li {
     display: inline;
     margin: 0 10px;
@@ -27,6 +28,10 @@ nav a.active {
 .nav-logo{
     height: 40px;
     width:40px;
+}
+
+.auth-container{
+    float: right;
 }
 
 .image-container{
