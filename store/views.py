@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
@@ -7,7 +8,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from .models import Coach, Ticket, User
+from .models import Coach, Ticket, User, BasketCoach, BasketTicket
 from .forms import RegisterForm, LoginForm, UserProfileForm
 
 
@@ -73,6 +74,14 @@ class TicketView(ListView):
         context['title'] = "Ticket"
 
         return context
+
+
+class TicketDetail(DetailView):
+    model = Ticket
+    template_name = 'ticket/ticket_detail.html'
+    slug_field = 'slug'
+    slug_url_kwarg = "ticket_slug"
+    context_object_name = 'ticket'
 
 
 class Register(View):
@@ -147,3 +156,35 @@ class ProfileView(TemplateView):
                 return redirect('profile')
 
         return render(request, 'profile/profile.html', {'form': form})
+
+
+class BasketView(TemplateView):
+    template_name = 'basket/basket.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['title'] = 'Корзина'
+        context['coach_basket'] = BasketCoach.objects.all()
+        context['ticket_basket'] = BasketTicket.objects.all()
+
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class BasketAddView(View):
+    @staticmethod
+    def get(request, ticket_id):
+        BasketTicket.create_or_update(ticket_id, request.user)
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+# href = "{% url 'products:basket_add' product.id %}" >
+
+
+@method_decorator(login_required, name='dispatch')
+class BasketRemoveView(View):
+    def get(self, request, basket_id):
+        basket = BasketTicket.objects.get(id=basket_id)
+        basket.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])

@@ -32,6 +32,7 @@ class Ticket(models.Model):
     type = models.CharField(max_length=35)
     type_day = models.CharField(max_length=35)
     price = models.CharField(max_length=10)
+    slug = models.SlugField(unique=True, max_length=50)
 
     def __str__(self):
         return f"{self.type} {self.type_day}"
@@ -59,3 +60,21 @@ class BasketTicket(models.Model):
 
     def __str__(self):
         return f'{self.ticket.type} {self.ticket.type_day} for {self.user.first_name} {self.user.last_name}'
+
+    def sum(self):
+        return self.ticket.price * self.quantity
+
+    @classmethod
+    def create_or_update(cls, ticket_id, user):
+        baskets = BasketTicket.objects.filter(user=user, ticket_id=ticket_id)
+
+        if not baskets.exists():
+            obj = BasketTicket.objects.create(user=user, ticket_id=ticket_id, quantity=1)
+            is_created = True
+            return obj, is_created
+        else:
+            basket = baskets.first()
+            basket.quantity += 1
+            basket.save()
+            is_crated = False
+            return basket, is_crated

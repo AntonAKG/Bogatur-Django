@@ -1,0 +1,9 @@
+.ticket-basket-container{
+    display: inline-block;
+    margin: 20px;
+    font-size: 20px;
+}
+
+.ticket-basket-container> a{
+    text-decoration: none;
+}
