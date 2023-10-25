@@ -6,10 +6,8 @@
             <h3>{{ ticket.ticket.type }}</h3>
             <p style="color: blue">{{ ticket.ticket.type_day }}</p>
             <p style="color: blue">{{ ticket.ticket.price }}</p>
-            <p style="color: blue">{{ ticket.ticket.id }}</p>
 
-
-            <h5><a href="#">Придбати</a></h5> | <h5><a href="{% url 'basket_remove' ticket.ticket.id %}">Видалити з корзини</a></h5>
+            <h5><a href="#">Придбати</a></h5> | <h5><a href="{% url 'basket_remove' ticket.id %}">Видалити з корзини</a></h5>
         </div>
     {% endfor %}
 

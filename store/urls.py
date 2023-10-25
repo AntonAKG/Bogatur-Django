@@ -24,7 +24,7 @@ urlpatterns = [
 
     path('basket/', BasketView.as_view(), name='basket'),
     path('basket/add/<int:ticket_id>', BasketAddView.as_view(), name='basket_add'),
-    path('basket/remove/<int:ticket_id>', BasketRemoveView.as_view(), name='basket_remove'),
+    path('basket/remove/<int:basket_id>', BasketRemoveView.as_view(), name='basket_remove'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

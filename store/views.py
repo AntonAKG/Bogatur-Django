@@ -185,6 +185,7 @@ class BasketAddView(View):
 @method_decorator(login_required, name='dispatch')
 class BasketRemoveView(View):
     def get(self, request, basket_id):
+
         basket = BasketTicket.objects.get(id=basket_id)
         basket.delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
