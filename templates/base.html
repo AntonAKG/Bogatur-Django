@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'store/css/style_ticket.css' %}">
     <link rel="stylesheet" href="{% static 'store/css/style_profile.css' %}">
     <link rel="stylesheet" href="{% static 'store/css/style_basket.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/style_pay.css' %}">
 
 </head>
 <body>
@@ -22,27 +23,31 @@
                 </a>
             </div>
 
-            <ul>
-                <li><a href="{% url 'main' %}">Головна</a></li>
-                <li><a href="{% url 'about' %}">Про нас</a></li>
-                <li><a href="{% url 'ticket' %}">Абонименти</a></li>
-                <li><a href="{% url 'coach' %}">Тренера</a></li>
-                <li><a href="{% url 'contact' %}">Контакти</a></li>
-                <li><a href="{% url 'basket' %}">Корзина</a></li>
+            <div class="main_nav">
+                <ul>
+                    <li><a href="{% url 'main' %}">Головна</a></li>
+                    <li><a href="{% url 'about' %}">Про нас</a></li>
+                    <li><a href="{% url 'ticket' %}">Абонименти</a></li>
+                    <li><a href="{% url 'coach' %}">Тренера</a></li>
+                    <li><a href="{% url 'contact' %}">Контакти</a></li>
+                    <li><a href="{% url 'basket' %}">Корзина</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="li-profile"><a href="{% url 'profile' %}">Профіль</a></li>
+                    {% else %}
+
+                        <li class="li-profile"><a href="{% url 'login' %}">login</a></li>|<li class="li-profile"><a href="{% url 'register' %}">sign up</a></li>
+
+                    {% endif %}
+
+                </ul>
 
 
-            </ul>
+
+
+            </div>
+
             <div class="auth-container">
-            {% if user.is_authenticated %}
-                <ul>
-                    <li><a href="{% url 'profile' %}">Профіль</a></li>
-                </ul>
 
-            {% else %}
-                <ul>
-                    <li><a href="{% url 'login' %}">login</a></li>|<li><a href="{% url 'register' %}">sign up</a></li>
-                </ul>
-            {% endif %}
             </div>
 
 

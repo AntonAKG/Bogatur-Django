@@ -1,14 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for ticket in ticket_basket %}
-        <div class="ticket-basket-container">
-            <h3>{{ ticket.ticket.type }}</h3>
-            <p style="color: blue">{{ ticket.ticket.type_day }}</p>
-            <p style="color: blue">{{ ticket.ticket.price }}</p>
 
-            <h5><a href="#">Придбати</a></h5> | <h5><a href="{% url 'basket_remove' ticket.id %}">Видалити з корзини</a></h5>
+    <div class="ticket-basket-container">
+        {% for ticket in ticket_basket %}
+        <div class="abonement">
+            <h1>{{ ticket.ticket.type }}</h1>
+            <h5>{{ ticket.ticket.type_day }}</h5>
+            <p>Включає:</p>
+            <ul>
+                <li>Безлімітний доступ до тренажерного залу</li>
+                <li>Душ</li>
+            </ul>
+            <p class="price">Вартість: {{ticket.ticket.price}} на місяць</p>
+            <button class="add-to-cart"><a href="{% url 'basket_remove' ticket.id %}">Додати в корзину</a></button>
+{#            <button class="add-to-cart"><a href="{% url 'confirm' %}">Додати в корзину</a></button>#}
         </div>
+
+
+
     {% endfor %}
+    </div>
+
+    <div class="coach-basket-container">
+        {% for coach in coach_basket %}
+            <h3>{{ coach.coach.user.first_name }} {{ coach.coach.user.last_name }}</h3>
+
+            <a href="#">
+                <img class="coach-basket-image" src="{{ coach.coach.image.url }}">
+            </a>
+        {% endfor %}
+    </div>
+
 
 {% endblock %}

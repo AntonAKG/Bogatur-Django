@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', serif;
+}
+
+
 header {
     background-color: #333;
     color: #a82a2a;
@@ -45,4 +55,8 @@ nav a.active {
 
 .about-container{
     justify-content: center;
+}
+
+.li-profile{
+    margin-left: auto;
 }

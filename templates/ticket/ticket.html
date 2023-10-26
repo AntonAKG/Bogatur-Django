@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="title-ticket">Ticket</h1>
     {% for ticket in object_list %}
-        <div class="ticket-container">
-            <h3>{{ ticket.type }}</h3>
-            <p style="color: blue">{{ ticket.type_day }}</p>
-            <p style="color: blue">{{ ticket.price }}</p>
-
-            <h5><a href="{% url 'basket_add' ticket.id %}">Додати в корзину</a></h5>
+        <div class="abonement">
+            <h1>{{ ticket.type }}</h1>
+            <h5>{{ ticket.type_day }}</h5>
+            <p>Включає:</p>
+            <ul>
+                <li>Безлімітний доступ до тренажерного залу</li>
+                <li>Душ</li>
+            </ul>
+            <p class="price">Вартість: {{ticket.price}} на місяць</p>
+            <button class="add-to-cart"><a href="{% url 'basket_add' ticket.id %}">Додати в корзину</a></button>
         </div>
-
-
 
     {% endfor %}
 {% endblock %}

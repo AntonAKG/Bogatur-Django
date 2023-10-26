@@ -6,4 +6,15 @@
 
 .ticket-basket-container> a{
     text-decoration: none;
+
+}
+
+.coach-basket-container{
+    display: inline-block;
+    float: right;
+}
+
+.coach-basket-image{
+    height: 250px;
+    width: 200px;
 }

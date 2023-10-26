@@ -185,7 +185,30 @@ class BasketAddView(View):
 @method_decorator(login_required, name='dispatch')
 class BasketRemoveView(View):
     def get(self, request, basket_id):
-
         basket = BasketTicket.objects.get(id=basket_id)
         basket.delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@method_decorator(login_required, name='dispatch')
+class BasketCoachAddView(View):
+
+    @staticmethod
+    def get(request, coach_id, coach_slug):
+        BasketCoach.create_or_update(coach_id, request.user)
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@method_decorator(login_required, name='dispatch')
+class ConfirmTicket(ListView):
+    model = BasketTicket
+    template_name = 'basket/confirm_ticket.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['basket'] = BasketTicket.objects.all()
+
+        context['title'] = 'Підтвердження покупки'
+
+        return context

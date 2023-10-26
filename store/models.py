@@ -51,6 +51,21 @@ class BasketCoach(models.Model):
     def __str__(self):
         return f'{self.coach.user.first_name} for {self.user.first_name} {self.user.last_name}'
 
+    @classmethod
+    def create_or_update(cls, coach_id, user):
+        baskets = BasketCoach.objects.filter(user=user, coach_id=coach_id)
+
+        if not baskets.exists():
+            obj = BasketCoach.objects.create(user=user, coach_id=coach_id, quantity=1)
+            is_created = True
+            return obj, is_created
+        else:
+            basket = baskets.first()
+            basket.quantity += 1
+            basket.save()
+            is_crated = False
+            return basket, is_crated
+
 
 class BasketTicket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

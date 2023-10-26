@@ -11,7 +11,7 @@
             <img src="{{ coach.image.url }}" alt="coach" class="coach-image">
         </a>
 
-        <h5><a href="#">Додати в корзину</a></h5>
+        <h5><a href="{% url 'coach_add' coach_slug=coach.slug coach_id=coach.id %}">Додати в корзину</a></h5>
 
     </div>
 
