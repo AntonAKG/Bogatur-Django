@@ -6,12 +6,15 @@
             <h1>{{ ticket.type }}</h1>
             <h5>{{ ticket.type_day }}</h5>
             <p>Включає:</p>
+
             <ul>
                 <li>Безлімітний доступ до тренажерного залу</li>
                 <li>Душ</li>
             </ul>
-            <p class="price">Вартість: {{ticket.price}} на місяць</p>
-            <button class="add-to-cart"><a href="{% url 'basket_add' ticket.id %}">Додати в корзину</a></button>
+            <p class="price">Вартість: {{ticket.price}} UAH на місяць</p>
+
+            <a href="{% url 'basket_add' ticket.id %}" class="btn-delete-ticket">Додати в корзину</a>
+
         </div>
 
     {% endfor %}

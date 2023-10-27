@@ -212,3 +212,15 @@ class ConfirmTicket(ListView):
         context['title'] = 'Підтвердження покупки'
 
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class BasketCoachDelView(View):
+
+    @staticmethod
+    def get(request, coach_id):
+        basket = BasketCoach.objects.get(id=coach_id)
+        basket.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+        # basket =

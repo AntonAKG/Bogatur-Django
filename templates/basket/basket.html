@@ -12,9 +12,9 @@
                 <li>Безлімітний доступ до тренажерного залу</li>
                 <li>Душ</li>
             </ul>
-            <p class="price">Вартість: {{ticket.ticket.price}} на місяць</p>
-            <button class="add-to-cart"><a href="{% url 'basket_remove' ticket.id %}">Додати в корзину</a></button>
-{#            <button class="add-to-cart"><a href="{% url 'confirm' %}">Додати в корзину</a></button>#}
+            <p class="price">Вартість: {{ticket.ticket.price}} UAH на місяць</p>
+{#            <button class="add-to-cart"><a href="{% url 'basket_remove' ticket.id %}">Видалити</a></button>#}
+            <a href="{% url 'basket_remove' ticket.id %}" class="btn-delete-ticket">Видалити</a>
         </div>
 
 
@@ -29,6 +29,10 @@
             <a href="#">
                 <img class="coach-basket-image" src="{{ coach.coach.image.url }}">
             </a>
+
+            <a href="{% url 'coach_delete' coach.id %}" class="btn-delete-ticket">Видалити</a>
+
+
         {% endfor %}
     </div>
 

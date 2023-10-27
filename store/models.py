@@ -32,7 +32,6 @@ class Ticket(models.Model):
     type = models.CharField(max_length=35)
     type_day = models.CharField(max_length=35)
     price = models.CharField(max_length=10)
-    slug = models.SlugField(unique=True, max_length=50)
 
     def __str__(self):
         return f"{self.type} {self.type_day}"

@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 
 from .views import (Index, About, Contact, CoachView, CoachDetail, TicketView, LoginClassView, Register, ProfileView,
-                    TicketDetail, BasketAddView, BasketRemoveView, BasketView, ConfirmTicket, BasketCoachAddView)
+                    TicketDetail, BasketAddView, BasketRemoveView, BasketView, ConfirmTicket, BasketCoachAddView, BasketCoachDelView)
 
 urlpatterns = [
     path('', Index.as_view(), name='main'),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('coach/', CoachView.as_view(), name='coach'),
     path('coach/<slug:coach_slug>/', CoachDetail.as_view(), name='coach_detail'),
     path('coach/<slug:coach_slug>/add/<int:coach_id>', BasketCoachAddView.as_view(), name='coach_add'),
+    path('basket/delete_coach/<int:coach_id>', BasketCoachDelView.as_view(), name='coach_delete'),
 
     path('ticket/', TicketView.as_view(), name='ticket'),
     path('ticket/<slug:ticket_slug>', TicketDetail.as_view(), name='ticket_detail'),
