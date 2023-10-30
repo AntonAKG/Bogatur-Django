@@ -15,6 +15,7 @@
             <p class="price">Вартість: {{ticket.ticket.price}} UAH на місяць</p>
 {#            <button class="add-to-cart"><a href="{% url 'basket_remove' ticket.id %}">Видалити</a></button>#}
             <a href="{% url 'basket_remove' ticket.id %}" class="btn-delete-ticket">Видалити</a>
+            <a href="{% url 'buy_ticket' %}" class="btn-delete-ticket">Придбати квиток</a>
         </div>
 
 

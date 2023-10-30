@@ -200,9 +200,9 @@ class BasketCoachAddView(View):
 
 
 @method_decorator(login_required, name='dispatch')
-class ConfirmTicket(ListView):
+class BuyTicketView(ListView):
     model = BasketTicket
-    template_name = 'basket/confirm_ticket.html'
+    template_name = 'basket/buy_ticket.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -222,5 +222,3 @@ class BasketCoachDelView(View):
         basket = BasketCoach.objects.get(id=coach_id)
         basket.delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-        # basket =

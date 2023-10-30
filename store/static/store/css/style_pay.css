@@ -36,15 +36,13 @@ p {
 }
 
 
-
 .btn.btn-primary:hover .fas.fa-arrow-right {
     transform: translate(15px);
     transition: transform 0.2s ease-in;
 }
 
 .form-control {
-    color: white;
-    background-color: #22602c;
+    color: black;
     border: 2px solid transparent;
     height: 60px;
     padding-left: 20px;
