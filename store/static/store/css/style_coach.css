@@ -5,12 +5,9 @@
     margin: 50px auto;
     padding: 20px;
     max-width: 1000px;
-}
-
-
-.coach-detail-container{
-    align-content: center;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .coach-image{
@@ -21,13 +18,19 @@
 .coach-image-container{
     float: left;
     margin: 10px;
-}
-
-.coach-image-container {
-    float: left;
     width: 50%;
 }
 
-.coach-detail-container {
-    margin-left: 20%;
+.card-coach {
+    width: 50%;
+}
+
+.desc-add {
+    width: 50%;
+    text-align: right;
+}
+
+.link-details {
+    text-decoration: none;
+    color: #007BFF;
 }

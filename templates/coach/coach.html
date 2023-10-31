@@ -5,16 +5,21 @@
         {% for person in object_list %}
 
             <div class="coach-container">
-                <h1>{{ person.user.last_name }} {{ person.user.first_name }}</h1>
+                <div class="card-coach">
+                    <h1>{{ person.user.last_name }} {{ person.user.first_name }}</h1>
 
-                <a href="{% url 'coach_detail' person.slug%}" class="link-coach-image">
-                    <img src="{{ person.image.url }}" alt="coach" class="coach-image">
+                    <a href="{% url 'coach_detail' person.slug%}" class="link-coach-image">
+                        <img src="{{ person.image.url }}" alt="coach" class="coach-image">
+                    </a>
 
-                </a>
+                    <p class="price">Вартість: {{ person.price_per_training }} UAH за тренування</p>
+                </div>
 
-                <p class="price">Вартість: {{person.price_per_training}} UAH за тренування</p>
+                <div class="desc-add">
+                    <h3><a href="{% url 'coach_detail' person.slug%}" class="link-details">Детальніше про тренера</a></h3>
+                    <a href="#" class="btn-delete-ticket">Додати в корзину</a>
+                </div>
             </div>
-
         {% endfor %}
 
 

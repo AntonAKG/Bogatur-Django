@@ -135,10 +135,18 @@ class ProfileView(TemplateView):
     template_name = 'profile/profile.html'
 
     def get_context_data(self, **kwargs):
+        today = datetime.now()
+
+        # formatted_date = today.strftime('%Y%m%d')
+        # format_end = end_start.strftime('%Y%m%d')
+        current_date = today.strftime('%Y%m%d')
+
+
         context = super().get_context_data(**kwargs)
         context['title'] = 'Profile'
         context['form'] = UserProfileForm(instance=self.request.user)
         context['active_ticket'] = ActiveTicket.objects.filter(user_id=self.request.user.id)
+        context['current_date'] = current_date
         return context
 
     @staticmethod
@@ -180,8 +188,7 @@ class BasketAddView(View):
     @staticmethod
     def get(request, ticket_id):
         BasketTicket.create_or_update(ticket_id, request.user)
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
+        return redirect('basket')
 
 @method_decorator(login_required, name='dispatch')
 class BasketRemoveView(View):
@@ -191,13 +198,14 @@ class BasketRemoveView(View):
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+
 @method_decorator(login_required, name='dispatch')
 class BasketCoachAddView(View):
 
     @staticmethod
     def get(request, coach_id, coach_slug):
         BasketCoach.create_or_update(coach_id, request.user)
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        return redirect('basket')
 
 
 @method_decorator(login_required, name='dispatch')
