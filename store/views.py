@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
@@ -8,7 +8,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from .models import Coach, Ticket, User, BasketCoach, BasketTicket
+from datetime import datetime, timedelta
+
+from .models import Coach, Ticket, User, BasketCoach, BasketTicket, ActiveTicket
 from .forms import RegisterForm, LoginForm, UserProfileForm
 
 
@@ -136,6 +138,7 @@ class ProfileView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Profile'
         context['form'] = UserProfileForm(instance=self.request.user)
+        context['active_ticket'] = ActiveTicket.objects.filter(user_id=self.request.user.id)
         return context
 
     @staticmethod
@@ -158,6 +161,7 @@ class ProfileView(TemplateView):
         return render(request, 'profile/profile.html', {'form': form})
 
 
+@method_decorator(login_required, name='dispatch')
 class BasketView(TemplateView):
     template_name = 'basket/basket.html'
 
@@ -165,8 +169,8 @@ class BasketView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['title'] = 'Корзина'
-        context['coach_basket'] = BasketCoach.objects.all()
-        context['ticket_basket'] = BasketTicket.objects.all()
+        context['coach_basket'] = BasketCoach.objects.filter(user_id=self.request.user.id)
+        context['ticket_basket'] = BasketTicket.objects.filter(user_id=self.request.user.id)
 
         return context
 
@@ -177,9 +181,6 @@ class BasketAddView(View):
     def get(request, ticket_id):
         BasketTicket.create_or_update(ticket_id, request.user)
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-
-# href = "{% url 'products:basket_add' product.id %}" >
 
 
 @method_decorator(login_required, name='dispatch')
@@ -200,21 +201,6 @@ class BasketCoachAddView(View):
 
 
 @method_decorator(login_required, name='dispatch')
-class BuyTicketView(ListView):
-    model = BasketTicket
-    template_name = 'basket/buy_ticket.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['basket'] = BasketTicket.objects.all()
-
-        context['title'] = 'Підтвердження покупки'
-
-        return context
-
-
-@method_decorator(login_required, name='dispatch')
 class BasketCoachDelView(View):
 
     @staticmethod
@@ -222,3 +208,42 @@ class BasketCoachDelView(View):
         basket = BasketCoach.objects.get(id=coach_id)
         basket.delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@method_decorator(login_required, name='dispatch')
+class BuyTicketView(TemplateView):
+    template_name = 'basket/buy_ticket.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['coach_basket'] = BasketCoach.objects.filter(user_id=self.request.user.id)
+        context['ticket_basket'] = BasketTicket.objects.filter(user_id=self.request.user.id)
+
+        context['title'] = 'Підтвердження покупки'
+
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class AddActiveTicket(View):
+
+    @staticmethod
+    def get(request, ticket_id):
+        ticket_exists = Ticket.objects.filter(id=ticket_id).exists()
+
+        if ticket_exists:
+            today = datetime.now()
+            end_start = today + timedelta(days=30)
+
+            formatted_date = today.strftime('%Y%m%d')
+            format_end = end_start.strftime('%Y%m%d')
+
+            ActiveTicket.create(ticket_id=ticket_id, user=request.user, start_date=formatted_date,
+                                end_date=format_end)
+
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+        else:
+
+            return HttpResponse('asfwgv')

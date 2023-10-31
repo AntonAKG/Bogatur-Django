@@ -13,9 +13,9 @@
                 <li>Душ</li>
             </ul>
             <p class="price">Вартість: {{ticket.ticket.price}} UAH на місяць</p>
-{#            <button class="add-to-cart"><a href="{% url 'basket_remove' ticket.id %}">Видалити</a></button>#}
             <a href="{% url 'basket_remove' ticket.id %}" class="btn-delete-ticket">Видалити</a>
-            <a href="{% url 'buy_ticket' %}" class="btn-delete-ticket">Придбати квиток</a>
+            <a href="{% url 'add_active' ticket.ticket.id %}" class="btn-buy-product">Придбати Товар</a>
+
         </div>
 
 
@@ -28,7 +28,7 @@
             <h3>{{ coach.coach.user.first_name }} {{ coach.coach.user.last_name }}</h3>
 
             <a href="#">
-                <img class="coach-basket-image" src="{{ coach.coach.image.url }}">
+                <img class="coach-basket-image" src="{{ coach.coach.image.url }}" alt="ss">
             </a>
 
             <a href="{% url 'coach_delete' coach.id %}" class="btn-delete-ticket">Видалити</a>
@@ -36,6 +36,7 @@
 
         {% endfor %}
     </div>
+
 
 
 {% endblock %}

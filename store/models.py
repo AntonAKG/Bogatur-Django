@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime, timedelta
 
 
 class User(AbstractUser):
@@ -92,3 +93,27 @@ class BasketTicket(models.Model):
             basket.save()
             is_crated = False
             return basket, is_crated
+
+
+class ActiveTicket(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True)
+
+    # def save(self, *args, **kwargs):
+    #     if not self.end_date:
+    #         self.end_date = self.start_date + timedelta(days=30)
+    #     super(ActiveTicket, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.start_date} - {self.end_date}'
+
+    @classmethod
+    def create(cls, user, ticket_id, start_date, end_date):
+        active = ActiveTicket.objects.filter(user=user, ticket_id=ticket_id)
+
+        if not active.exists():
+            obj = ActiveTicket.objects.create(user=user, ticket_id=ticket_id, start_date=start_date, end_date=end_date)
+            is_created = True
+            return obj, is_created

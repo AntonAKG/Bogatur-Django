@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Coach, Ticket
+from .models import User, Coach, Ticket, ActiveTicket
 
 
 class TicketAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ class CoachAdmin(admin.ModelAdmin):
 admin.site.register(User)
 admin.site.register(Coach, CoachAdmin)
 admin.site.register(Ticket, TicketAdmin)
+admin.site.register(ActiveTicket)

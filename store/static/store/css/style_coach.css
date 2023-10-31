@@ -1,6 +1,12 @@
-.loop-coach{
-    display: flex;
+.coach-container{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 1000px;
 }
+
 
 .coach-detail-container{
     align-content: center;
@@ -19,9 +25,9 @@
 
 .coach-image-container {
     float: left;
-    width: 50%; /* Якщо ви хочете, щоб контейнери були приблизно однаковою шириною */
+    width: 50%;
 }
 
 .coach-detail-container {
-    margin-left: 20%; /* Зміщення вправо на 50% ширини батьківського контейнера (можна налаштувати якщо потрібно) */
+    margin-left: 20%;
 }

@@ -1,7 +1,17 @@
-.basket{
-    float: right;
+.changelist-form-container {
+  float: left;
 }
 
-.changelist-form-container{
-    display: inline;
+.active-ticket {
+  float: right;
+}
+
+.changelist-form-container {
+  width: 60%;
+  padding: 15px;
+}
+
+.active-ticket {
+  width: 40%;
+  padding: 15px;
 }
