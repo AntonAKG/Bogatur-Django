@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+    <input type="number" name="amount_of_training" id="amount_of_training" value="{{ form.instance.amount_of_training }}">
+    <button type="button" id="increment">+</button>
+    <button type="button" id="decrement">-</button>
+    <button type="submit">Add Training Session</button>
+</form>
+
+<script>
+    const amountInput = document.getElementById('amount_of_training');
+    const incrementButton = document.getElementById('increment');
+    const decrementButton = document.getElementById('decrement');
+
+    incrementButton.addEventListener('click', () => {
+        amountInput.value = parseInt(amountInput.value) + 1;
+    });
+
+    decrementButton.addEventListener('click', () => {
+        const currentValue = parseInt(amountInput.value);
+        if (currentValue > 0) {
+            amountInput.value = currentValue - 1;
+        }
+    });
+</script>
+{% endblock %}

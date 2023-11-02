@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from datetime import datetime
 
 from store.forms import UserProfileForm
-from store.models import ActiveTicket, User
+from store.models import ActiveTicket, User, ActiveCoach
 
 
 @method_decorator(login_required, name='dispatch')
@@ -23,6 +23,7 @@ class ProfileView(TemplateView):
         context['title'] = 'Profile'
         context['form'] = UserProfileForm(instance=self.request.user)
         context['active_ticket'] = ActiveTicket.objects.filter(user_id=self.request.user.id)
+        context['active_coach'] = ActiveCoach.objects.filter(user_id=self.request.user.id)
         context['current_date'] = current_date
         return context
 

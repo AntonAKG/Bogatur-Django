@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime, timedelta
 
 
 class User(AbstractUser):
@@ -18,7 +17,7 @@ class Coach(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     descriptions = models.TextField()
     image = models.ImageField(upload_to=None)
-    price_per_training = models.CharField(max_length=10)
+    price_per_training = models.IntegerField()
     slug = models.SlugField(unique=True, max_length=50)
 
     def __str__(self):
@@ -101,11 +100,6 @@ class ActiveTicket(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True)
 
-    # def save(self, *args, **kwargs):
-    #     if not self.end_date:
-    #         self.end_date = self.start_date + timedelta(days=30)
-    #     super(ActiveTicket, self).save(*args, **kwargs)
-
     def __str__(self):
         return f'{self.start_date} - {self.end_date}'
 
@@ -117,3 +111,16 @@ class ActiveTicket(models.Model):
             obj = ActiveTicket.objects.create(user=user, ticket_id=ticket_id, start_date=start_date, end_date=end_date)
             is_created = True
             return obj, is_created
+
+class ActiveCoach(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    amount_of_training = models.IntegerField()
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return f'{self.coach.user.first_name} {self.coach.user.last_name}'
+
+

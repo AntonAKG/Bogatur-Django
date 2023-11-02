@@ -2,10 +2,12 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import redirect
 
 from datetime import datetime, timedelta
 
 from store.models import Ticket, ActiveTicket
+
 
 @method_decorator(login_required, name='dispatch')
 class AddActiveTicket(View):
@@ -24,7 +26,7 @@ class AddActiveTicket(View):
             ActiveTicket.create(ticket_id=ticket_id, user=request.user, start_date=formatted_date,
                                 end_date=format_end)
 
-            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+            return redirect('profile')
 
         else:
 

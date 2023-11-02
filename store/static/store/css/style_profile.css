@@ -2,7 +2,7 @@
   float: left;
 }
 
-.active-ticket {
+.active {
   float: right;
 }
 
@@ -14,4 +14,8 @@
 .active-ticket {
   width: 40%;
   padding: 15px;
+}
+
+.card-body{
+  width: 600px;
 }

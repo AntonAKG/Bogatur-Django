@@ -1,20 +1,46 @@
-.ticket-basket-container{
-    display: inline-block;
-    margin: 20px;
-    font-size: 20px;
+/* Стилі для контейнера корзини */
+.basket-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px; /* Додати відступи для кращого вигляду */
 }
 
-.ticket-basket-container> a{
-    text-decoration: none;
-
+/* Стилі для ticket-basket-container (зліва) */
+.ticket-basket-container {
+    flex: 1;
+    background-color: #f1f1f1; /* Задаємо колір фону */
+    border: 1px solid #ccc; /* Додати межі */
+    padding: 10px;
 }
 
-.coach-basket-container{
-    display: inline-block;
-    float: right;
+.abonement {
+    background-color: #fff; /* Задаємо фон для окремих абонементів */
+    margin-bottom: 10px; /* Додати відступ між абонементами */
+    padding: 10px;
 }
 
-.coach-basket-image{
-    height: 250px;
-    width: 200px;
+/* Стилі для coach-basket-container (справа) */
+.coach-basket-container {
+    flex: 1;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px;
 }
+
+.coach {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+/* Стилі для зображень тренерів */
+.coach-basket-image {
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid #ddd;
+}
+
+
+
+
+

@@ -1,41 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="basket-container">
+        <div class="ticket-basket-container">
+            {% for ticket in ticket_basket %}
+                <div class="abonement">
+                    <h1>{{ ticket.ticket.type }}</h1>
+                    <h5>{{ ticket.ticket.type_day }}</h5>
+                    <p>Включає:</p>
+                    <ul>
+                        <li>Безлімітний доступ до тренажерного залу</li>
+                        <li>Душ</li>
+                    </ul>
+                    <p class="price">Вартість: {{ ticket.ticket.price }} UAH на місяць</p>
+                    <a href="{% url 'basket_remove' ticket.id %}" class="btn-delete-ticket">Видалити</a>
+                    <a href="{% url 'add_active' ticket.ticket.id %}" class="btn-buy-product">Придбати Товар</a>
 
-    <div class="ticket-basket-container">
-        {% for ticket in ticket_basket %}
-        <div class="abonement">
-            <h1>{{ ticket.ticket.type }}</h1>
-            <h5>{{ ticket.ticket.type_day }}</h5>
-            <p>Включає:</p>
-            <ul>
-                <li>Безлімітний доступ до тренажерного залу</li>
-                <li>Душ</li>
-            </ul>
-            <p class="price">Вартість: {{ticket.ticket.price}} UAH на місяць</p>
-            <a href="{% url 'basket_remove' ticket.id %}" class="btn-delete-ticket">Видалити</a>
-            <a href="{% url 'add_active' ticket.ticket.id %}" class="btn-buy-product">Придбати Товар</a>
+                </div>
 
+
+
+            {% endfor %}
         </div>
 
+        <div class="coach-basket-container">
+            {% for coach in coach_basket %}
+                <h3>{{ coach.coach.user.first_name }} {{ coach.coach.user.last_name }}</h3>
+
+                <a href="#">
+                    <img class="coach-basket-image" src="{{ coach.coach.image.url }}" alt="ss">
+                </a>
+
+                <form method="post" action="{% url 'add_training_session' coach.coach.id%}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Придбати товар</button>
+
+                </form>
+
+                <a href="{% url 'coach_delete' coach.id %}" class="btn-delete-ticket">Видалити</a>
 
 
-    {% endfor %}
+
+            {% endfor %}
+        </div>
     </div>
 
-    <div class="coach-basket-container">
-        {% for coach in coach_basket %}
-            <h3>{{ coach.coach.user.first_name }} {{ coach.coach.user.last_name }}</h3>
-
-            <a href="#">
-                <img class="coach-basket-image" src="{{ coach.coach.image.url }}" alt="ss">
-            </a>
-
-            <a href="{% url 'coach_delete' coach.id %}" class="btn-delete-ticket">Видалити</a>
-
-
-        {% endfor %}
-    </div>
 
 
 

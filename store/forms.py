@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
+from django.core.validators import MinValueValidator
+
+from store.models import ActiveCoach
 
 User = get_user_model()
 
@@ -73,3 +76,13 @@ class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'email')
+
+
+class AddTrainingSessionForm(forms.ModelForm):
+    amount_of_training = forms.IntegerField(
+        validators=[MinValueValidator(limit_value=0, message="Amount of training cannot be negative")]
+    )
+
+    class Meta:
+        model = ActiveCoach
+        fields = ['amount_of_training']

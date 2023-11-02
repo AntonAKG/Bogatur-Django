@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 
-from store.views import active_ticket, home, auth, basket, basket_coach, basket_ticket, coach, ticket, profile
+from store.views import active_ticket, home, auth, basket, basket_coach, basket_ticket, coach, ticket, profile, active_coach
 
 urlpatterns = [
       # Home
@@ -47,6 +47,12 @@ urlpatterns = [
 
     # add active ticket
 
-    path('basket/buy_ticket/add_active/<int:ticket_id>', active_ticket.AddActiveTicket.as_view(), name='add_active')
+    path('basket/buy_ticket/add_active/<int:ticket_id>', active_ticket.AddActiveTicket.as_view(), name='add_active'),
+
+    # add active coach
+
+    path('basket/buy_coach/add/<int:coach_id>/', active_coach.ActiveCoachView.as_view(), name='add_training_session'),
+
+    # path('add_training_session/', ),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

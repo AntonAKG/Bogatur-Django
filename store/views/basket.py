@@ -2,8 +2,10 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-
 from store.models import BasketTicket, BasketCoach
+from store.forms import AddTrainingSessionForm
+
+
 @method_decorator(login_required, name='dispatch')
 class BasketView(TemplateView):
     template_name = 'basket/basket.html'
@@ -14,5 +16,6 @@ class BasketView(TemplateView):
         context['title'] = 'Корзина'
         context['coach_basket'] = BasketCoach.objects.filter(user_id=self.request.user.id)
         context['ticket_basket'] = BasketTicket.objects.filter(user_id=self.request.user.id)
+        context['form'] = AddTrainingSessionForm()
 
         return context
